@@ -1,7 +1,7 @@
 # publisher/subscriber
 import time
 import paho.mqtt.client as mqtt
-import mycamera # 카메라 사진 보내기
+import camera # 카메라 사진 보내기
 import circuit # LED 모듈
 
 flag = False
@@ -48,9 +48,9 @@ client.loop_start()
 while True :
         if flag==True :
                 # publish 토픽과 함께 메시지 데이터 전송
-                imageFileName = mycamera.takePicture() # 카메라 사진 촬영
+                imageFileName = camera.takePicture() # 카메라 사진 촬영
                 client.publish("image", imageFileName, qos=0)
-                reImageFileName = mycamera.remakePicture() # 얼굴 인식
+                reImageFileName = camera.remakePicture() # 얼굴 인식
                 client.publish("reImage", reImageFileName, qos=0)
                 ledcomplete = circuit.ledComplete() # LED(조명)
                 client.publish("led",ledcomplete, qos=0)
